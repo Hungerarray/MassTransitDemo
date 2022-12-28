@@ -1,5 +1,5 @@
+using Common;
 using Serilog;
-using WebApi;
 using WebApi.BackgroundWorker;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,7 +14,10 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
 builder.Services.ConfigureMassTransit();
+// builder.Services.ConfigureMassTransitCore();
+
 builder.Services.ConfigureBackgroundWorkers();
 
 var app = builder.Build();

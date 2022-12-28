@@ -1,8 +1,8 @@
-using System.Reflection;
-using Consumers;
+﻿using Consumers;
 using MassTransit;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace WebApi;
+namespace Common;
 
 public static class MassTransitExtensions
 {
@@ -21,6 +21,12 @@ public static class MassTransitExtensions
 			});
 		});
 
+		return services;
+	}
+
+	public static IServiceCollection ConfigureMassTransitCore(this IServiceCollection services)
+	{
+		services.AddMassTransit(config => config.UsingRabbitMq());
 		return services;
 	}
 }
