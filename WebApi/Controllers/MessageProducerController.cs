@@ -25,4 +25,15 @@ public class MessageProducerController : ControllerBase
 		});
 		return Ok();
 	}
+
+	[HttpGet("Delayed")]
+	public async Task<ActionResult> Delayed(int seconds)
+	{
+		var endpoint = await _endpointProvider.GetSendEndpoint(new Uri("queue:delayed-message"));
+		await endpoint.Send<DelayedMessage>(new()
+		{
+			Seconds = TimeSpan.FromSeconds(seconds)
+		});
+		return Ok();
+	}
 }
