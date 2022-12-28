@@ -6,3 +6,9 @@ services:
     ports:
       - 5672:5672
       - 8080:15672
+  prometheus:
+    image: ubuntu/prometheus
+    ports:
+      - 9090:9090
+    volumes:
+      - ./prometheus.yml:/opt/prometheus/prometheus.yml

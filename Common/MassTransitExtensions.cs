@@ -21,6 +21,7 @@ public static class MassTransitExtensions
 				// cfg.UseInMemoryOutbox();
 				cfg.Host("localhost");
 
+				cfg.UsePrometheusMetrics();
 				cfg.ConfigureEndpoints(ctx);
 			});
 		});

@@ -1,4 +1,5 @@
 using Common;
+using Prometheus;
 using Serilog;
 using WebApi.BackgroundWorker;
 
@@ -18,7 +19,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.ConfigureMassTransit();
 // builder.Services.ConfigureMassTransitCore();
 
-// builder.Services.ConfigureBackgroundWorkers();
+builder.Services.ConfigureBackgroundWorkers();
 
 var app = builder.Build();
 
@@ -33,6 +34,7 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
+app.MapMetrics();
 app.MapControllers();
 
 app.Run();
