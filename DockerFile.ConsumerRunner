@@ -1,0 +1,11 @@
+FROM mcr.microsoft.com/dotnet/sdk:7.0-alpine as build-env
+WORKDIR /app
+
+COPY ./ ./
+RUN dotnet restore
+RUN dotnet publish ConsumerRunner/ConsumerRunner.csproj -c Release -o ConsumerRunner
+
+FROM mcr.microsoft.com/dotnet/runtime:7.0-bullseye-slim
+WORKDIR /ConsumerRunner
+COPY --from=build-env /app/ConsumerRunner .
+ENTRYPOINT [ "dotnet", "ConsumerRunner.dll" ]

@@ -1,0 +1,11 @@
+FROM mcr.microsoft.com/dotnet/sdk:7.0-alpine as build-env
+WORKDIR /app
+
+COPY ./ ./
+RUN dotnet restore
+RUN dotnet publish WebApi/WebApi.csproj -c Release -o webapi
+
+FROM mcr.microsoft.com/dotnet/aspnet:7.0-bullseye-slim
+WORKDIR /webapi
+COPY --from=build-env /app/webapi .
+ENTRYPOINT [ "dotnet", "WebApi.dll" ]
