@@ -16,8 +16,12 @@ public static class MassTransitExtensions
 			config.SetKebabCaseEndpointNameFormatter();
 
 			config.UsingRabbitMq((ctx, cfg) => {
-				cfg.ConfigureEndpoints(ctx);
+				// cfg.UseDelayedRedelivery(r => r.Intervals(TimeSpan.FromMinutes(1), TimeSpan.FromMinutes(2)));
+				// cfg.UseMessageRetry(r => r.Immediate(2));
+				// cfg.UseInMemoryOutbox();
 				cfg.Host("localhost");
+
+				cfg.ConfigureEndpoints(ctx);
 			});
 		});
 

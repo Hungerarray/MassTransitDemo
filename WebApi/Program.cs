@@ -18,7 +18,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.ConfigureMassTransit();
 // builder.Services.ConfigureMassTransitCore();
 
-builder.Services.ConfigureBackgroundWorkers();
+// builder.Services.ConfigureBackgroundWorkers();
 
 var app = builder.Build();
 
