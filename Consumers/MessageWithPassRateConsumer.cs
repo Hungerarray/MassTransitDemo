@@ -34,7 +34,7 @@ public class MessageWithPassRateConsumerDefinition :
 	protected override void ConfigureConsumer(IReceiveEndpointConfigurator endpointConfigurator, IConsumerConfigurator<MessageWithPassRateConsumer> consumerConfigurator)
 	{
 		endpointConfigurator.UseMessageRetry(
-			cfg => cfg.Incremental(2, TimeSpan.FromSeconds(0), TimeSpan.FromSeconds(2))
+			cfg => cfg.Immediate(2)
 		);
 		endpointConfigurator.UseDelayedRedelivery(
 			cfg => cfg.Intervals(TimeSpan.FromMinutes(1), TimeSpan.FromMinutes(2))

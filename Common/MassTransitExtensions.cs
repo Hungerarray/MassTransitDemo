@@ -6,6 +6,7 @@ namespace Common;
 
 public static class MassTransitExtensions
 {
+	private const string RabbitMqConnection = "localhost";
 	public static IServiceCollection ConfigureMassTransit(this IServiceCollection services)
 	{
 		services.AddOptions<MassTransitHostOptions>()
@@ -19,11 +20,12 @@ public static class MassTransitExtensions
 				// cfg.UseDelayedRedelivery(r => r.Intervals(TimeSpan.FromMinutes(1), TimeSpan.FromMinutes(2)));
 				// cfg.UseMessageRetry(r => r.Immediate(2));
 				// cfg.UseInMemoryOutbox();
-				cfg.Host("rabbitmq");
+				cfg.Host(RabbitMqConnection);
 
 				cfg.UsePrometheusMetrics(serviceName: "MassTransit");
 				cfg.ConfigureEndpoints(ctx);
 			});
+			// config.UsingInMemory();
 		});
 
 		return services;
@@ -31,7 +33,7 @@ public static class MassTransitExtensions
 
 	public static IServiceCollection ConfigureMassTransitCore(this IServiceCollection services)
 	{
-		services.AddMassTransit(config => config.UsingRabbitMq());
+		services.AddMassTransit(config => config.UsingRabbitMq((_, cfg) => cfg.Host(RabbitMqConnection)));
 		return services;
 	}
 }

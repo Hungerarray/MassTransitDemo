@@ -1,8 +1,8 @@
 global:
-  scrape_interval: 5s
+  scrape_interval: 40s
 
 scrape_configs:
   - job_name: masstransit
     static_configs:
       - targets:
-        - 'webapi:80'
+        - 'host.docker.internal:5089'

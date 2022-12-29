@@ -1,2 +1,5 @@
 FROM rabbitmq:3-management
-RUN rabbitmq-plugins enable --offline rabbitmq_shovel_management rabbitmq_shovel rabbitmq_consistent_hash_exchange
+RUN apt-get update && apt-get install -y curl unzip
+RUN curl -LO https://github.com/rabbitmq/rabbitmq-delayed-message-exchange/releases/download/3.11.1/rabbitmq_delayed_message_exchange-3.11.1.ez
+RUN unzip rabbitmq_delayed_message_exchange-3.11.1.ez -d /plugins/
+RUN rabbitmq-plugins enable --offline rabbitmq_shovel_management rabbitmq_shovel rabbitmq_consistent_hash_exchange rabbitmq_delayed_message_exchange
